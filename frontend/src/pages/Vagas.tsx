@@ -56,6 +56,12 @@ export default function Vagas() {
     [deficienciaUsuario]
   );
 
+  // ⭐ Máximo teórico de score com base no perfil do usuário:
+  // até 3 pontos pela deficiência + 1 por recurso marcado
+  const baseDef = defNormalizada ? 3 : 0;
+  const baseRec = recursosNecessarios.length;
+  const MAX_SCORE = (baseDef + baseRec) || 1; // evita 0
+
   // === 2. CARREGA VAGAS DO BACK ===
   useEffect(() => {
     const loadVagas = async () => {
@@ -85,6 +91,7 @@ export default function Vagas() {
     const temFiltroDef = !!defNormalizada;
     const temFiltroRec = recursosNecessarios.length > 0;
 
+    // sem filtros: mostra tudo, sem score
     if (!temFiltroDef && !temFiltroRec) {
       return vagas.map((v) => ({ ...v, scoreMatch: 0 }));
     }
@@ -111,10 +118,13 @@ export default function Vagas() {
         const tipoVaga = normalizarDeficiencia(String(vaga.tipo_deficiencia || ""));
 
         if (!tipoVaga || tipoVaga === "" || tipoVaga.includes("todas")) {
+          // vaga aberta para qualquer PCD
           score += 1;
         } else if (tipoVaga === defNormalizada) {
+          // vaga explicitamente para o mesmo tipo de deficiência
           score += 3;
         } else if (textoVaga.includes(defNormalizada)) {
+          // menciona no texto da vaga
           score += 2;
         }
       }
@@ -150,20 +160,25 @@ export default function Vagas() {
       return score;
     };
 
-    const comScore: VagaComScore[] = vagas.map((vaga) => ({
-      ...vaga,
-      scoreMatch: calcularScore(vaga),
-    }));
+    const comScore: VagaComScore[] = vagas.map((vaga) => {
+      const bruto = calcularScore(vaga);
+      // ⭐ garante que nunca passe do máximo teórico
+      const scoreMatch = Math.min(bruto, MAX_SCORE);
+      return { ...vaga, scoreMatch };
+    });
 
+    // só mantemos com score > 0 quando há filtros
     const filtradas = comScore.filter((v) => v.scoreMatch > 0);
 
+    // se nenhuma passou, devolve todas (mas já com score calculado)
     if (filtradas.length === 0) {
       return comScore;
     }
 
+    // ordena da melhor para a pior
     filtradas.sort((a, b) => b.scoreMatch - a.scoreMatch);
     return filtradas;
-  }, [vagas, defNormalizada, recursosNecessarios]);
+  }, [vagas, defNormalizada, recursosNecessarios, MAX_SCORE]);
 
   const temFiltroAtivo =
     !!defNormalizada || (recursosNecessarios && recursosNecessarios.length > 0);
@@ -266,7 +281,7 @@ export default function Vagas() {
               {/* badge de match se houver score */}
               {temFiltroAtivo && vaga.scoreMatch > 0 && (
                 <div className="absolute top-3 right-3 text-[10px] px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700">
-                  Match {vaga.scoreMatch}/{5}
+                  Match {vaga.scoreMatch}/{MAX_SCORE}
                 </div>
               )}
 

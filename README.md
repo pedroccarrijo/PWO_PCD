@@ -19,8 +19,5 @@ O projeto visa a criação de uma **plataforma back-end** completa para:
 - ⚖️ **Aderência total às normas legais** de contratação PCD
 
 
-<<<<<<< HEAD
 ---
-=======
->>>>>>> 32f2d58f8dcec9b9cac165698645427f07b37f5e
 

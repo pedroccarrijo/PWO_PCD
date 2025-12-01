@@ -20,7 +20,12 @@ export default function CadastroPCD() {
   const [dataNasc, setDataNasc] = useState("");
   const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
+
+  // 👉 continua sendo a string enviada pro backend
   const [deficiencia, setDeficiencia] = useState("");
+  // 👉 controla o select (motora, visual, auditiva, outra...)
+  const [tipoDeficienciaSelect, setTipoDeficienciaSelect] = useState("");
+
   const [subtipo, setSubtipo] = useState("");
   const [cpf, setCpf] = useState("");
   const [senha, setSenha] = useState("");
@@ -48,6 +53,11 @@ export default function CadastroPCD() {
       return;
     }
 
+    if (!deficiencia.trim()) {
+      setErro("Informe o tipo de deficiência.");
+      return;
+    }
+
     setLoading(true);
     try {
       const payload: any = {
@@ -56,7 +66,7 @@ export default function CadastroPCD() {
         dt_aniversario: dataNasc,
         email,
         telefone,
-        deficiencia,
+        deficiencia, // mantém igual
         subtipo,
         senha,
         cpf,
@@ -78,6 +88,20 @@ export default function CadastroPCD() {
       setErro(msg);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleChangeTipoDeficiencia = (valor: string) => {
+    setTipoDeficienciaSelect(valor);
+
+    if (valor === "outra") {
+      // deixa livre para a pessoa escrever
+      setDeficiencia("");
+    } else if (!valor) {
+      setDeficiencia("");
+    } else {
+      // salva diretamente o rótulo escolhido
+      setDeficiencia(valor);
     }
   };
 
@@ -264,15 +288,38 @@ export default function CadastroPCD() {
                     <label className="block text-xs font-medium text-slate-700 mb-1">
                       Tipo de deficiência
                     </label>
-                    <input
-                      type="text"
+                    <select
+                      value={tipoDeficienciaSelect}
+                      onChange={(e) => handleChangeTipoDeficiencia(e.target.value)}
+                      className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       required
-                      value={deficiencia}
-                      onChange={(e) => setDeficiencia(e.target.value)}
-                      className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
-                      placeholder="Ex.: Deficiência motora, visual, auditiva..."
-                    />
+                    >
+                      <option value="">Selecione...</option>
+                      <option value="motora">Motora</option>
+                      <option value="visual">Visual</option>
+                      <option value="auditiva">Auditiva</option>
+                      <option value="intelectual">Intelectual</option>
+                      <option value="psicossocial">Psicossocial</option>
+                      <option value="multipla">Múltipla</option>
+                      <option value="outra">Outra</option>
+                    </select>
                   </div>
+
+                  {/* Campo livre só quando selecionar "Outra" */}
+                  {tipoDeficienciaSelect === "outra" && (
+                    <div>
+                      <label className="block text-xs font-medium text-slate-700 mb-1">
+                        Descreva o tipo de deficiência
+                      </label>
+                      <input
+                        type="text"
+                        value={deficiencia}
+                        onChange={(e) => setDeficiencia(e.target.value)}
+                        className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
+                        placeholder="Ex.: Deficiência rara X, condição específica, etc."
+                      />
+                    </div>
+                  )}
 
                   <div>
                     <label className="block text-xs font-medium text-slate-700 mb-1">
