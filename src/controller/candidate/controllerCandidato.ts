@@ -3,15 +3,17 @@ import * as Model from "../../model/candidato/modelCandidato.js";
 type NovoCandidato = {
   nome: string;
   sobrenome: string;
-  cpf: string;              // 🔹 NOVO
   dt_aniversario: string;
   email: string;
   telefone?: string;
   deficiencia: string;
   subtipo: string;
-  laudo?: string | null;    // 🔹 NOVO (opcional)
   senha: string;
+  cpf: string;                 // NOVO
+  recursos_necessarios?: string; // NOVO
+  laudo?: string | null;     // NOVO
 };
+
 
 export const postCandidato = async (
   body: NovoCandidato
@@ -73,6 +75,18 @@ export const getCandidatoById = async (
 ): Promise<[number, any]> => {
   try {
     return await Model.getCandidatoById(id);
+  } catch (error) {
+    console.log(error);
+    return [500, "Internal Server Error"];
+  }
+};
+
+export const updateDescricao = async (
+  id: number,
+  descricao: string
+): Promise<[number, string]> => {
+  try {
+    return await Model.updateDescricaoCandidato(id, descricao);
   } catch (error) {
     console.log(error);
     return [500, "Internal Server Error"];

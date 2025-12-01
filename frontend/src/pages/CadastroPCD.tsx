@@ -34,9 +34,7 @@ export default function CadastroPCD() {
 
   const toggleRecurso = (item: string) => {
     setRecursos((prev) =>
-      prev.includes(item)
-        ? prev.filter((r) => r !== item)
-        : [...prev, item]
+      prev.includes(item) ? prev.filter((r) => r !== item) : [...prev, item]
     );
   };
 
@@ -84,18 +82,18 @@ export default function CadastroPCD() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-100 px-4">
-      <div className="max-w-4xl w-full bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl shadow-slate-300/60 border border-slate-100 overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center bg-slate-200 px-4">
+      <div className="max-w-4xl w-full bg-white/90 backdrop-blur-xl rounded-3xl shadow-xl shadow-slate-400/30 border border-slate-300 overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-[2fr_0.9fr]">
           {/* Lado esquerdo: formulário */}
           <div className="p-8 sm:p-10 bg-slate-50">
             {/* Logo + título */}
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-6 border-b border-slate-300 pb-4">
               <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-md">
                 PWO
               </div>
               <div className="flex flex-col leading-tight">
-                <span className="font-semibold text-slate-900 text-base">
+                <span className="font-semibold text-slate-800 text-base">
                   ConectPCD
                 </span>
                 <span className="text-xs text-slate-500">
@@ -105,10 +103,10 @@ export default function CadastroPCD() {
             </div>
 
             {/* Abinhas PCD / Empresa */}
-            <div className="flex mb-6 rounded-full bg-slate-200/70 p-1">
+            <div className="flex mb-6 rounded-full bg-slate-100 border border-slate-300 p-1">
               <button
                 type="button"
-                className="flex-1 py-2 text-sm font-medium rounded-full bg-white text-blue-600 shadow-sm"
+                className="flex-1 py-2 text-sm font-medium rounded-full bg-white text-blue-600 shadow-sm border border-slate-300"
               >
                 Cadastro PCD
               </button>
@@ -124,12 +122,12 @@ export default function CadastroPCD() {
             <h1 className="text-xl sm:text-2xl font-semibold text-slate-900 mb-1">
               Crie sua conta PCD
             </h1>
-            <p className="text-sm text-slate-500 mb-4">
+            <p className="text-sm text-slate-600 mb-4">
               As informações estão divididas em blocos para facilitar o preenchimento.
             </p>
 
             {erro && (
-              <div className="mb-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+              <div className="mb-3 text-sm text-red-600 bg-red-50 border border-red-300 rounded-lg px-3 py-2">
                 {erro}
               </div>
             )}
@@ -421,17 +419,17 @@ export default function CadastroPCD() {
           </div>
 
           {/* Lado direito: destaque */}
-          <div className="hidden md:flex flex-col justify-between bg-gradient-to-b from-blue-600 to-blue-700 text-white p-6">
+          <div className="hidden md:flex flex-col justify-between bg-slate-300 border-l border-slate-400 text-slate-800 p-6">
             <div>
               <h2 className="text-lg font-semibold mb-2">
                 Seu perfil importa.
               </h2>
-              <p className="text-sm text-blue-100">
+              <p className="text-sm text-slate-700">
                 Ao detalhar sua deficiência, recursos necessários e preferências,
                 você aumenta as chances de encontrar vagas realmente adequadas.
               </p>
             </div>
-            <div className="mt-6 space-y-2 text-xs text-blue-100">
+            <div className="mt-6 space-y-2 text-xs text-slate-600">
               <p>• Destaque suas habilidades e experiências.</p>
               <p>• Encontre empresas preparadas para te receber.</p>
               <p>• Acompanhe suas candidaturas em um só lugar.</p>

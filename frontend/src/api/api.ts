@@ -14,6 +14,10 @@ export const candidatoService = {
   getById: (id: number) => api.get(`/get/candidato/${id}`),
   update: (id: number, data: Candidato) => api.put(`/update/candidato/${id}`, data),
   delete: (id: number) => api.delete(`/delete/candidato/${id}`),
+  updateDescricao(id_candidato: number, descricao: string) {
+  return api.put(`/update/candidato/${id_candidato}/descricao`, { descricao });
+  },
+
 
   // 🔥 LOGIN PCD
   login: (email: string, senha: string) =>
@@ -70,4 +74,19 @@ export const adminService = {
 
   createSubtipo: (data: Subtipo) =>
     api.post("/post/subtipo", data),
+};
+
+// api.ts
+export const candidaturaService = {
+  getCandidaturasByCandidato(id_candidato: number) {
+    return api.get(`/get/candidaturas/candidato/${id_candidato}`);
+  },
+
+  getCandidaturasByVaga(id_vaga: number) {
+    return api.get(`/get/candidaturas/vaga/${id_vaga}`);
+  },
+
+  create(payload: any) {
+    return api.post("/post/candidatura", payload);
+  },
 };

@@ -6,6 +6,13 @@ import * as ControllerEmpresa from "../controller/empresa/controllerEmpresa.js";
 import * as ControllerVaga from "../controller/vaga/controllerVaga.js";
 import * as ControllerAdmin from "../controller/admin/controllerAdmin.js";
 import cors from "cors";
+import * as CandidaturaController from "../controller/candidatura/controllerCandidatura.js";
+import {
+  postCandidatura,
+  getCandidaturasByCandidato,
+  getCandidaturasByVaga,
+  updateDescricaoCandidato
+} from "../routes/routes.js";
 
 export let startServ = (PORT: number) => {
   const APP = express();
@@ -274,6 +281,25 @@ export let startServ = (PORT: number) => {
     }
   });
 
+  // ROTAS DE CANDIDATURA
+  APP.post(postCandidatura, async (req, res) => {
+    const [status, message] = await CandidaturaController.postCandidatura(req.body);
+    res.status(status).send(message);
+  });
+
+  APP.get(getCandidaturasByCandidato, async (req, res) => {
+    const candidatoId = Number(req.params.id);
+    const [status, data] = await CandidaturaController.getCandidaturasByCandidato(candidatoId);
+    res.status(status).send(data);
+  });
+
+  APP.get(getCandidaturasByVaga, async (req, res) => {
+    const vagaId = Number(req.params.id);
+    const [status, data] = await CandidaturaController.getCandidaturasByVaga(vagaId);
+    res.status(status).send(data);
+  });
+
+
 //
   APP.post(Routes.loginCandidato, async (req: Request, res: Response) => {
     try {
@@ -309,6 +335,15 @@ export let startServ = (PORT: number) => {
       res.status(500).send(error);
     }
   });
+  
+    APP.put(updateDescricaoCandidato, async (req, res) => {
+    const id = Number(req.params.id);
+    const { descricao } = req.body;
+
+    const [status, message] = await ControllerCandidato.updateDescricao(id, descricao);
+    res.status(status).send(message);
+  });
+
 
 };
 

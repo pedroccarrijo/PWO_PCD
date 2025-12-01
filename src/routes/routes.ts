@@ -10,6 +10,8 @@ export let getCandidatoById: string = "/get/candidato/:id";   // ✅ ADD
 export let deleteCanditado: string = "/delete/candidato/:id";
 export let updateCanditado: string = "/update/candidato/:id";
 
+export let updateDescricaoCandidato: string = "/update/candidato/:id/descricao";
+
 // Rotas para o recurso Empresa
 export let postEmpresa: string = "/post/empresa";
 export let getEmpresa: string = "/get/empresa";
@@ -31,6 +33,12 @@ export let getCandidatosVaga: string = "/get/vaga/:id/candidatos";
 // rota para o candidato se candidatar à vaga
 export let candidatarVaga: string = "/post/candidatar/:vagaId/:candidatoId";
 
+// CANDIDATURAS
+export let postCandidatura: string = "/post/candidatura";
+export let getCandidaturasByCandidato: string = "/get/candidaturas/candidato/:id";
+export let getCandidaturasByVaga: string = "/get/candidaturas/vaga/:id";
+
+
 
 //  Rotas para Login
 export let loginCandidato: string = "/login/candidato";
@@ -42,3 +50,5 @@ export let loginAdmin: string = "/login/admin";
 export let postAcessibilidade: string = "/post/acessibilidade";
 export let postBarreira: string = "/post/barreira";
 export let postSubtipo: string = "/post/subtipo";
+
+

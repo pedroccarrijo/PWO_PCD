@@ -105,12 +105,12 @@ export default function DetalhesVaga() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-slate-200">
       {/* HEADER */}
-      <header className="border-b border-slate-200 bg-white">
+      <header className="border-b border-slate-300 bg-slate-100/90 backdrop-blur">
         <div className="max-w-5xl mx-auto px-4 py-4 flex flex-col gap-4">
           {/* Linha superior */}
-          <div className="flex items-center justify-between gap-3 pb-3 border-b border-slate-200">
+          <div className="flex items-center justify-between gap-3 pb-3 border-b border-slate-300">
             <div className="flex items-center gap-3">
               <button
                 onClick={() => navigate(-1)}
@@ -136,7 +136,7 @@ export default function DetalhesVaga() {
 
           {/* Título / subtítulo (ligados à vaga, quando tiver) */}
           {vaga && (
-            <div className="flex flex-col gap-1">
+            <div className="bg-white/90 border border-slate-300 rounded-2xl p-3 shadow-sm flex flex-col gap-1">
               <h1 className="text-base sm:text-lg font-semibold text-slate-900">
                 {vaga.nm_vaga}
               </h1>
@@ -152,13 +152,13 @@ export default function DetalhesVaga() {
       {/* CONTEÚDO */}
       <main className="max-w-5xl mx-auto px-4 py-6">
         {loading && (
-          <div className="bg-white border border-slate-200 rounded-2xl p-4 text-sm text-slate-600 shadow-sm">
+          <div className="bg-white/90 border border-slate-300 rounded-2xl p-4 text-sm text-slate-600 shadow-sm">
             Carregando detalhes da vaga...
           </div>
         )}
 
         {erro && !loading && (
-          <div className="bg-red-50 border border-red-200 rounded-2xl px-4 py-3 text-sm text-red-600 shadow-sm">
+          <div className="bg-red-50 border border-red-300 rounded-2xl px-4 py-3 text-sm text-red-600 shadow-sm">
             {erro}
           </div>
         )}
@@ -168,7 +168,7 @@ export default function DetalhesVaga() {
             {/* COLUNA PRINCIPAL – DETALHES */}
             <div className="space-y-4">
               {/* Card principal da vaga */}
-              <section className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4">
+              <section className="bg-white/90 border border-slate-300 rounded-2xl p-5 shadow-sm space-y-4">
                 {/* Título e empresa */}
                 <div className="space-y-1">
                   <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
@@ -215,7 +215,7 @@ export default function DetalhesVaga() {
                 </div>
 
                 {/* Sobre a vaga */}
-                <div className="pt-2 border-t border-slate-100 space-y-2">
+                <div className="pt-2 border-t border-slate-200 space-y-2">
                   <h3 className="text-sm font-semibold text-slate-900">
                     Sobre a vaga
                   </h3>
@@ -225,7 +225,7 @@ export default function DetalhesVaga() {
                 </div>
 
                 {/* Benefícios, se houver */}
-                <div className="pt-2 border-t border-slate-100 space-y-2">
+                <div className="pt-2 border-t border-slate-200 space-y-2">
                   <h3 className="text-sm font-semibold text-slate-900">
                     Benefícios
                   </h3>
@@ -236,7 +236,7 @@ export default function DetalhesVaga() {
                 </div>
 
                 {/* Botão de candidatura */}
-                <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                <div className="pt-3 border-t border-slate-200 flex flex-col sm:flex-row items-start sm:items-center gap-3">
                   <button
                     type="button"
                     disabled={candidatarLoading}
@@ -256,7 +256,7 @@ export default function DetalhesVaga() {
             </div>
 
             {/* COLUNA LATERAL – RESUMO PCD / ACESSIBILIDADE */}
-            <aside className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm h-fit space-y-3 text-xs text-slate-600">
+            <aside className="bg-white/90 border border-slate-300 rounded-2xl p-4 shadow-sm h-fit space-y-3 text-xs text-slate-600">
               <h3 className="text-xs font-semibold text-slate-700">
                 Resumo para pessoas com deficiência
               </h3>
@@ -271,7 +271,7 @@ export default function DetalhesVaga() {
                   </span>
                 </div>
 
-                <div className="pt-2 border-t border-slate-100 space-y-1">
+                <div className="pt-2 border-t border-slate-200 space-y-1">
                   <p className="text-[11px] font-medium text-slate-600">
                     Acessibilidade informada pela empresa
                   </p>
@@ -281,7 +281,7 @@ export default function DetalhesVaga() {
                   </p>
                 </div>
 
-                <div className="pt-2 border-t border-slate-100 space-y-1">
+                <div className="pt-2 border-t border-slate-200 space-y-1">
                   <p className="text-[11px] text-slate-600">
                     Dica: sempre que possível, confirme com a empresa sobre
                     recursos de acessibilidade antes da entrevista, especialmente

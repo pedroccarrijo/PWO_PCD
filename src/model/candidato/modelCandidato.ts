@@ -3,14 +3,15 @@ import * as DB from "../../database/candidate/query.js";
 type NovoCandidato = {
   nome: string;
   sobrenome: string;
-  cpf: string;              // 🔹 NOVO
   dt_aniversario: string;
   email: string;
   telefone?: string;
   deficiencia: string;
   subtipo: string;
-  laudo?: string | null;    // 🔹 NOVO
   senha: string;
+  cpf: string;                 // NOVO
+  recursos_necessarios?: string; // NOVO
+  laudo?: string | null;     // NOVO
 };
 
 export const postCandidato = async (
@@ -78,6 +79,18 @@ export const login = async (
   try {
     const [status, data] = await DB.loginCandidato(email, senha);
     return [status, data];
+  } catch (error) {
+    console.log(error);
+    return [400, "Bad Request"];
+  }
+};
+
+export const updateDescricaoCandidato = async (
+  id: number,
+  descricao: string
+): Promise<[number, string]> => {
+  try {
+    return await DB.updateDescricaoCandidato(id, descricao);
   } catch (error) {
     console.log(error);
     return [400, "Bad Request"];

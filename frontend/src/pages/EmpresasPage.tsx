@@ -64,13 +64,12 @@ export default function EmpresasPage() {
       : "usuário";
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-slate-200">
       {/* HEADER */}
-      <header className="border-b border-slate-200 bg-white">
+      <header className="border-b border-slate-300 bg-slate-100/90 backdrop-blur">
         <div className="max-w-5xl mx-auto px-4 py-4 flex flex-col gap-4">
-
           {/* Linha de cima */}
-          <div className="flex items-center justify-between gap-3 pb-3 border-b border-slate-200">
+          <div className="flex items-center justify-between gap-3 pb-3 border-b border-slate-300">
             <div className="flex items-center gap-3">
               <button
                 onClick={() => navigate(-1)}
@@ -94,18 +93,21 @@ export default function EmpresasPage() {
             </div>
 
             <div className="hidden sm:flex text-[11px] text-slate-500">
-              Olá, <span className="font-medium text-slate-700 ml-1">{nomeUsuario}</span>
+              Olá,
+              <span className="font-medium text-slate-700 ml-1">
+                {nomeUsuario}
+              </span>
             </div>
           </div>
 
-          {/* Título */}
-          <div className="flex flex-col gap-1">
+          {/* Título em card */}
+          <div className="bg-white/90 border border-slate-300 rounded-2xl p-3 shadow-sm flex flex-col gap-1">
             <h1 className="text-base font-semibold text-slate-900">
               Empresas inclusivas cadastradas
             </h1>
             <p className="text-[11px] text-slate-600 max-w-xl">
-              Conheça empresas preparadas para receber profissionais com deficiência,
-              veja informações importantes e explore vagas abertas.
+              Conheça empresas preparadas para receber profissionais com
+              deficiência, veja informações importantes e explore vagas abertas.
             </p>
           </div>
         </div>
@@ -114,23 +116,22 @@ export default function EmpresasPage() {
       {/* CONTEÚDO EM DUAS COLUNAS */}
       <main className="max-w-5xl mx-auto px-4 py-6">
         <section className="grid grid-cols-1 md:grid-cols-[minmax(0,2fr),minmax(0,1.1fr)] gap-4">
-
           {/* COLUNA PRINCIPAL – LISTA DE EMPRESAS */}
           <div className="space-y-4">
             {erro && (
-              <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-3 py-2">
+              <div className="text-sm text-red-600 bg-red-50 border border-red-300 rounded-xl px-3 py-2 shadow-sm">
                 {erro}
               </div>
             )}
 
             {loading && (
-              <div className="text-sm text-slate-600 bg-white border border-slate-200 rounded-xl px-4 py-3 shadow-sm">
+              <div className="text-sm text-slate-600 bg-white/90 border border-slate-300 rounded-xl px-4 py-3 shadow-sm">
                 Carregando empresas...
               </div>
             )}
 
             {!loading && !erro && empresas.length === 0 && (
-              <div className="bg-white border border-slate-200 rounded-xl p-6 text-sm text-slate-500 shadow-sm">
+              <div className="bg-white/90 border border-slate-300 rounded-xl p-6 text-sm text-slate-500 shadow-sm">
                 Ainda não há empresas cadastradas.
               </div>
             )}
@@ -148,19 +149,21 @@ export default function EmpresasPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {empresas.map((empresa) => {
-                    const vagasDaEmpresa = getVagasDaEmpresa(empresa.id_empresa);
+                    const vagasDaEmpresa = getVagasDaEmpresa(
+                      empresa.id_empresa
+                    );
 
                     return (
                       <article
                         key={empresa.id_empresa}
-                        className="relative bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow-md hover:border-blue-400 transition overflow-hidden"
+                        className="relative bg-white/95 border border-slate-300 rounded-2xl p-4 shadow-sm hover:shadow-md hover:border-blue-400 transition overflow-hidden"
                       >
                         {/* Faixa lateral */}
                         <span className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-blue-500 via-sky-400 to-emerald-400" />
 
                         <div className="pl-3 flex flex-col gap-3">
                           {/* Cabeçalho */}
-                          <div className="pb-3 border-b border-slate-100 space-y-1">
+                          <div className="pb-3 border-b border-slate-200 space-y-1">
                             <h3 className="text-sm font-semibold text-slate-900">
                               {empresa.nome_fantasia || empresa.razao_social}
                             </h3>
@@ -202,7 +205,8 @@ export default function EmpresasPage() {
                                     </span>
 
                                     <span className="text-[10px] text-slate-500">
-                                      {vaga.modalidade || "Modalidade não informada"}
+                                      {vaga.modalidade ||
+                                        "Modalidade não informada"}
                                       {vaga.tipo_deficiencia &&
                                         ` · foco: ${vaga.tipo_deficiencia}`}
                                     </span>
@@ -225,7 +229,7 @@ export default function EmpresasPage() {
           </div>
 
           {/* COLUNA LATERAL – RESUMO */}
-          <aside className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm h-fit space-y-3">
+          <aside className="bg-white/90 border border-slate-300 rounded-2xl p-4 shadow-sm h-fit space-y-3">
             <h3 className="text-xs font-semibold text-slate-700">
               Sobre as empresas cadastradas
             </h3>
@@ -242,8 +246,8 @@ export default function EmpresasPage() {
               </p>
 
               <p>
-                Explore os detalhes das vagas acessando o Explorer ou clicando em
-                uma vaga na tela principal.
+                Explore os detalhes das vagas acessando o Explorer ou clicando
+                em uma vaga na tela principal.
               </p>
             </div>
           </aside>

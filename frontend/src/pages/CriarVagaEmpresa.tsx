@@ -31,8 +31,8 @@ export default function CriarVagaEmpresa() {
 
   if (!empresa) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-100">
-        <div className="bg-white border border-slate-200 rounded-2xl px-6 py-4 shadow-sm text-sm text-slate-700">
+      <div className="min-h-screen flex items-center justify-center bg-slate-200">
+        <div className="bg-white/90 border border-slate-300 rounded-2xl px-6 py-4 shadow-sm text-sm text-slate-700">
           Você não está autenticado como empresa.
         </div>
       </div>
@@ -77,13 +77,8 @@ export default function CriarVagaEmpresa() {
         carga_horaria: cargaHoraria, // ex.: "40h semanais"
         beneficios, // texto livre
 
-        acessibilidade: acessibilidade.join(", "), // ex.: "Elevador; Rampa; Banheiro adaptado"
+        acessibilidade: acessibilidade.join(", "),
       };
-
-      // se o back-end exigir o id da empresa no body, podemos incluir aqui também:
-      // (além do parâmetro na URL)
-      // (descomentar se for o caso)
-      // (payload as any).id_empresa = empresa.id_empresa;
 
       await vagaService.create(payload as any, empresa.id_empresa);
 
@@ -104,9 +99,9 @@ export default function CriarVagaEmpresa() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100">
+    <div className="min-h-screen bg-slate-200">
       {/* Topo */}
-      <header className="bg-white/90 backdrop-blur-md border-b border-slate-200 sticky top-0 z-20">
+      <header className="bg-slate-100/90 backdrop-blur-md border-b border-slate-300 sticky top-0 z-20">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
@@ -134,7 +129,7 @@ export default function CriarVagaEmpresa() {
 
       {/* Conteúdo */}
       <main className="max-w-4xl mx-auto px-4 py-6">
-        <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+        <div className="bg-white/90 border border-slate-300 rounded-2xl p-6 shadow-sm">
           <h1 className="text-lg font-semibold text-slate-900 mb-3">
             Criar nova vaga inclusiva
           </h1>
@@ -169,7 +164,7 @@ export default function CriarVagaEmpresa() {
                 value={titulo}
                 onChange={(e) => setTitulo(e.target.value)}
                 required
-                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
+                className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
                 placeholder="Ex.: Desenvolvedor(a) Front-end Pleno"
               />
             </div>
@@ -183,7 +178,7 @@ export default function CriarVagaEmpresa() {
                   type="text"
                   value={localidade}
                   onChange={(e) => setLocalidade(e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
+                  className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
                   placeholder="Ex.: São Paulo - SP, Remoto, Híbrido..."
                 />
               </div>
@@ -195,7 +190,7 @@ export default function CriarVagaEmpresa() {
                   type="text"
                   value={salario}
                   onChange={(e) => setSalario(e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
+                  className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
                   placeholder="Ex.: R$ 3.000 a R$ 4.500"
                 />
               </div>
@@ -210,7 +205,7 @@ export default function CriarVagaEmpresa() {
                 <select
                   value={tipoDeficiencia}
                   onChange={(e) => setTipoDeficiencia(e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="">Selecione...</option>
                   <option value="motora">Motora</option>
@@ -219,7 +214,9 @@ export default function CriarVagaEmpresa() {
                   <option value="intelectual">Intelectual</option>
                   <option value="psicossocial">Psicossocial</option>
                   <option value="multipla">Múltipla</option>
-                  <option value="indiferente">Indiferente (vaga aberta para qualquer PCD)</option>
+                  <option value="indiferente">
+                    Indiferente (vaga aberta para qualquer PCD)
+                  </option>
                 </select>
               </div>
 
@@ -230,7 +227,7 @@ export default function CriarVagaEmpresa() {
                 <select
                   value={modalidade}
                   onChange={(e) => setModalidade(e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="">Selecione...</option>
                   <option value="Presencial">Presencial</option>
@@ -246,7 +243,7 @@ export default function CriarVagaEmpresa() {
                 <select
                   value={tipoContrato}
                   onChange={(e) => setTipoContrato(e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="">Selecione...</option>
                   <option value="CLT">CLT</option>
@@ -266,7 +263,7 @@ export default function CriarVagaEmpresa() {
                   type="text"
                   value={cargaHoraria}
                   onChange={(e) => setCargaHoraria(e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
+                  className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
                   placeholder="Ex.: 40h semanais, 6h/dia..."
                 />
               </div>
@@ -278,7 +275,7 @@ export default function CriarVagaEmpresa() {
                   type="text"
                   value={beneficios}
                   onChange={(e) => setBeneficios(e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
+                  className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
                   placeholder="Ex.: VR, VA, plano de saúde, auxílio home office..."
                 />
               </div>
@@ -298,7 +295,7 @@ export default function CriarVagaEmpresa() {
                   "Intérprete de Libras",
                   "Piso tátil",
                   "Ambiente preparado para cão-guia",
-                  "Recursos de leitura de tela / softwares de acessibilidade"
+                  "Recursos de leitura de tela / softwares de acessibilidade",
                 ].map((item) => (
                   <label
                     key={item}
@@ -328,7 +325,7 @@ export default function CriarVagaEmpresa() {
                 value={requisitos}
                 onChange={(e) => setRequisitos(e.target.value)}
                 rows={6}
-                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white resize-none"
+                className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white resize-none"
               />
               <p className="mt-1 text-[11px] text-slate-500">
                 Dica: mencione itens como elevador para cadeirantes, rampas,

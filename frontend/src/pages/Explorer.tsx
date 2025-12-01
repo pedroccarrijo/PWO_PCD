@@ -75,13 +75,12 @@ export default function Explorer() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-slate-200">
       {/* HEADER */}
-      <header className="border-b border-slate-200 bg-white">
+      <header className="border-b border-slate-300 bg-slate-100/90 backdrop-blur">
         <div className="max-w-6xl mx-auto px-4 py-5 flex flex-col gap-5">
-          
           {/* Linha superior */}
-          <div className="flex items-center justify-between gap-4 pb-3 border-b border-slate-200">
+          <div className="flex items-center justify-between gap-4 pb-3 border-b border-slate-300">
             <button
               onClick={() => navigate("/")}
               className="flex items-center gap-2 group"
@@ -109,22 +108,22 @@ export default function Explorer() {
 
               <button
                 onClick={() => navigate("/empresas")}
-                className="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-700 hover:bg-slate-50"
+                className="px-3 py-1.5 rounded-full bg-white border border-slate-300 text-slate-700 hover:bg-slate-50"
               >
                 Empresas
               </button>
 
               <button
                 onClick={() => navigate("/perfil/pcd")}
-                className="hidden sm:inline-flex px-3 py-1.5 rounded-full border border-slate-200 text-slate-700 hover:bg-slate-100"
+                className="hidden sm:inline-flex px-3 py-1.5 rounded-full border border-slate-300 text-slate-700 hover:bg-slate-100"
               >
                 Meu perfil
               </button>
             </div>
           </div>
 
-          {/* Introdução */}
-          <div className="flex flex-col lg:flex-row gap-6">
+          {/* Introdução + card resumo dentro de um bloco branco */}
+          <div className="flex flex-col lg:flex-row gap-6 bg-white/90 border border-slate-300 rounded-2xl p-4 shadow-sm">
             <div className="flex-1 space-y-2">
               <h1 className="text-xl sm:text-2xl font-semibold text-slate-900">
                 Explore vagas pensadas para pessoas com deficiência
@@ -136,7 +135,7 @@ export default function Explorer() {
             </div>
 
             {/* Card estatístico */}
-            <div className="w-full lg:w-64 bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+            <div className="w-full lg:w-64 bg-white/90 border border-slate-300 rounded-xl p-4 shadow-sm">
               <p className="text-[11px] text-slate-500 mb-2">Resumo rápido</p>
 
               <div className="flex justify-between items-end pb-3 border-b border-slate-200">
@@ -159,88 +158,91 @@ export default function Explorer() {
             </div>
           </div>
 
-          {/* Barra de busca */}
-          <div className="border-t border-slate-200 pt-4">
-            <div className="relative">
-              <input
-                type="text"
-                value={busca}
-                onChange={(e) => setBusca(e.target.value)}
-                placeholder="Buscar vagas por título, requisitos ou cidade..."
-                className="w-full rounded-xl bg-white border border-slate-300 px-4 py-2 pr-10 text-sm focus:ring-2 focus:ring-blue-500 outline-none shadow-sm"
-              />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs">
-                🔍
-              </span>
+          {/* Barra de busca + filtros dentro de bloco branco */}
+          <div className="bg-white/90 border border-slate-300 rounded-2xl p-4 space-y-4 shadow-sm">
+            {/* Barra de busca */}
+            <div>
+              <div className="relative">
+                <input
+                  type="text"
+                  value={busca}
+                  onChange={(e) => setBusca(e.target.value)}
+                  placeholder="Buscar vagas por título, requisitos ou cidade..."
+                  className="w-full rounded-xl bg-slate-50 border border-slate-300 px-4 py-2 pr-10 text-sm focus:ring-2 focus:ring-blue-500 outline-none shadow-sm"
+                />
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs">
+                  🔍
+                </span>
+              </div>
             </div>
-          </div>
 
-          {/* FILTROS */}
-          <div className="border-t border-slate-200 pt-4">
-            <div className="flex flex-col gap-2 text-[11px]">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-slate-600">Foco PCD:</span>
+            {/* FILTROS */}
+            <div className="border-t border-slate-200 pt-3">
+              <div className="flex flex-col gap-2 text-[11px]">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-slate-600">Foco PCD:</span>
 
-                {["motora", "visual", "auditiva", "intelectual", "psicossocial"].map(
-                  (tipo) => {
+                  {["motora", "visual", "auditiva", "intelectual", "psicossocial"].map(
+                    (tipo) => {
+                      const ativo =
+                        filtroDeficiencia &&
+                        filtroDeficiencia.toLowerCase() === tipo.toLowerCase();
+
+                      return (
+                        <button
+                          key={tipo}
+                          onClick={() => toggleFiltroDeficiencia(tipo)}
+                          className={[
+                            "px-3 py-1.5 rounded-full border text-xs transition",
+                            ativo
+                              ? "bg-blue-600 text-white border-blue-600"
+                              : "bg-white text-slate-700 border-slate-300 hover:bg-slate-100",
+                          ].join(" ")}
+                        >
+                          {tipo.charAt(0).toUpperCase() + tipo.slice(1)}
+                        </button>
+                      );
+                    }
+                  )}
+                </div>
+
+                {/* Modalidade */}
+                <div className="flex flex-wrap items-center gap-2 pt-2">
+                  <span className="text-slate-600">Modalidade:</span>
+
+                  {["Remoto", "Presencial", "Híbrido"].map((tipo) => {
                     const ativo =
-                      filtroDeficiencia &&
-                      filtroDeficiencia.toLowerCase() === tipo.toLowerCase();
+                      filtroModalidade &&
+                      filtroModalidade.toLowerCase() === tipo.toLowerCase();
 
                     return (
                       <button
                         key={tipo}
-                        onClick={() => toggleFiltroDeficiencia(tipo)}
+                        onClick={() => toggleFiltroModalidade(tipo)}
                         className={[
                           "px-3 py-1.5 rounded-full border text-xs transition",
                           ativo
-                            ? "bg-blue-600 text-white border-blue-600"
-                            : "bg-white text-slate-700 border-slate-200 hover:bg-slate-100",
+                            ? "bg-indigo-600 text-white border-indigo-600"
+                            : "bg-white text-slate-700 border-slate-300 hover:bg-slate-100",
                         ].join(" ")}
                       >
-                        {tipo.charAt(0).toUpperCase() + tipo.slice(1)}
+                        {tipo}
                       </button>
                     );
-                  }
-                )}
-              </div>
+                  })}
 
-              {/* Modalidade */}
-              <div className="flex flex-wrap items-center gap-2 pt-2">
-                <span className="text-slate-600">Modalidade:</span>
-
-                {["Remoto", "Presencial", "Híbrido"].map((tipo) => {
-                  const ativo =
-                    filtroModalidade &&
-                    filtroModalidade.toLowerCase() === tipo.toLowerCase();
-
-                  return (
+                  {(filtroDeficiencia || filtroModalidade) && (
                     <button
-                      key={tipo}
-                      onClick={() => toggleFiltroModalidade(tipo)}
-                      className={[
-                        "px-3 py-1.5 rounded-full border text-xs transition",
-                        ativo
-                          ? "bg-indigo-600 text-white border-indigo-600"
-                          : "bg-white text-slate-700 border-slate-200 hover:bg-slate-100",
-                      ].join(" ")}
+                      onClick={() => {
+                        setFiltroDeficiencia(null);
+                        setFiltroModalidade(null);
+                      }}
+                      className="px-2 py-1.5 text-xs text-slate-500 hover:text-slate-700"
                     >
-                      {tipo}
+                      Limpar filtros
                     </button>
-                  );
-                })}
-
-                {(filtroDeficiencia || filtroModalidade) && (
-                  <button
-                    onClick={() => {
-                      setFiltroDeficiencia(null);
-                      setFiltroModalidade(null);
-                    }}
-                    className="px-2 py-1.5 text-xs text-slate-500 hover:text-slate-700"
-                  >
-                    Limpar filtros
-                  </button>
-                )}
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -250,22 +252,21 @@ export default function Explorer() {
 
       {/* CONTEÚDO PRINCIPAL */}
       <main className="max-w-6xl mx-auto px-4 py-6 space-y-6">
-
         {/* Status */}
         {loading && (
-          <div className="text-sm text-slate-600 bg-white border border-slate-200 rounded-xl px-4 py-3 shadow-sm">
+          <div className="text-sm text-slate-600 bg-white/90 border border-slate-300 rounded-xl px-4 py-3 shadow-sm">
             Carregando vagas...
           </div>
         )}
 
         {erro && !loading && (
-          <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3 shadow-sm">
+          <div className="text-sm text-red-600 bg-red-50 border border-red-300 rounded-xl px-4 py-3 shadow-sm">
             {erro}
           </div>
         )}
 
         {!loading && !erro && vagasFiltradas.length === 0 && (
-          <div className="text-sm text-slate-600 bg-white border border-slate-200 rounded-xl px-4 py-6 shadow-sm">
+          <div className="text-sm text-slate-600 bg-white/90 border border-slate-300 rounded-xl px-4 py-6 shadow-sm">
             <p>Nenhuma vaga encontrada com os filtros atuais.</p>
             <p className="text-[11px] text-slate-500 mt-1">
               Tente ajustar filtros ou aguarde novas oportunidades.
@@ -289,13 +290,12 @@ export default function Explorer() {
               {vagasFiltradas.map((vaga) => (
                 <article
                   key={vaga.id_vaga}
-                  className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md hover:border-blue-400 transition cursor-pointer group"
+                  className="bg-white/95 border border-slate-300 rounded-xl p-4 shadow-sm hover:shadow-md hover:border-blue-400 transition cursor-pointer group"
                   onClick={() =>
                     navigate(`/vaga/${vaga.id_vaga}`, { state: { vaga } })
                   }
                 >
                   <div className="flex flex-col gap-3">
-
                     {/* Título */}
                     <h3 className="text-sm font-semibold text-slate-900 group-hover:text-blue-700 line-clamp-2">
                       {vaga.nm_vaga}
@@ -306,7 +306,7 @@ export default function Explorer() {
                     </p>
 
                     {/* Infos */}
-                    <div className="border-t border-slate-100 pt-3 text-[11px] flex flex-wrap gap-2">
+                    <div className="border-t border-slate-200 pt-3 text-[11px] flex flex-wrap gap-2">
                       <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-50 border border-slate-200">
                         📍 {vaga.localidade || "Localidade não informada"}
                       </span>
