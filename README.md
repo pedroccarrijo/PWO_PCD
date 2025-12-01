@@ -16,8 +16,11 @@ O projeto visa a criação de uma **plataforma back-end** completa para:
 - 👥 **Gestão de candidatos PCD** com validações rigorosas
 - 🏢 **Criação e vinculação de vagas** com empresas
 - 👨💼 **Cadastro de colaboradores** responsáveis
-- 🔗 **Controle de relacionamentos** entre entidades (empresa ↔ vaga, candidato ↔ vaga)
 - ⚖️ **Aderência total às normas legais** de contratação PCD
 
 
+<<<<<<< HEAD
 ---
+=======
+>>>>>>> 32f2d58f8dcec9b9cac165698645427f07b37f5e
+
